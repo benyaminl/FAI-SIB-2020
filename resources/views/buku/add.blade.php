@@ -8,17 +8,45 @@
     <form method='post'>
         @csrf
         <div class="form-group">
+            <label>Kode Buku</label>
+            <input type="text" class="form-control" name="kode_buku">
+        </div>
+        <div class="form-group">
             <label>Nama Buku</label>
             <input type="text" class="form-control" name="nama_buku">
         </div>
         <div class="form-group">
+            <label>Jumlah Buku</label>
+            <input type="text" class="form-control" name="jumlah_buku">
+        </div>
+        <div class="form-group">
+            <label>Tahun Terbit</label>
+            <input type="text" class="form-control" name="tahun_terbit">
+        </div>
+        <div class="form-group">
+            <label>Jumlah Halaman</label>
+            <input type="text" class="form-control" name="jumlah_halaman">
+        </div>
+        <div class="form-group">
+            <label>Pengarang</label>
+            <input type="text" class="form-control" name="pengarang_buku">
+        </div>
+        <div class="form-group">
+            <label>ISBN</label>
+            <input type="text" class="form-control" name="isbn">
+        </div>
+        <div class="form-group">
             <label>Genre</label>
-            <select name="genre_buku" class="form-control select2" multiple="multiple">
-                <option>Chicken Soup</option>
+            <select name="genre_buku[]" class="form-control select2" multiple="yes">
+                {{-- <option>Chicken Soup</option>
                 <option>History</option>
-                <option>Biografi</option>
+                <option>Biografi</option> --}}
+                @foreach ($dataGenre as $item)
+                <option value="{{ $item->id }}">{{ $item->nama_genre }}</option>
+                @endforeach
             </select>
         </div>
+
         <button type='submit'>Tambah</button>
     </form>
 </div>

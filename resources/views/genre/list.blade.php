@@ -15,13 +15,13 @@
         <tbody>
         @foreach($data as $d) 
             <tr>
-                <td>{{ $d["id"] }}</td>
+                <td>{{ $d->id }}</td>
                 {{-- <td>{{ $d["id"] }}</td> --}}
-                <td>{{ $d["nama"] }}</td>
+                <td>{{ $d->nama_genre }}</td>
                 <td>
-                    <a class="btn btn-info" href="{{ url('genre/'.$d['id'].'/edit') }}">Edit</a>
+                    <a class="btn btn-info" href="{{ url('genre/'.$d->id.'/edit') }}">Edit</a>
 
-                    <form method="POST" action="{{ url('genre/'.$d['id']) }}" class="d-inline">
+                    <form method="POST" action="{{ url('genre/'.$d->id) }}" class="d-inline">
                         @method("DELETE")
                         @csrf
                         <button type="submit" class="btn btn-danger">Delete</button>

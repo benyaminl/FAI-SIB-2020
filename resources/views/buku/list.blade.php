@@ -18,13 +18,13 @@
             <tr>
                 <td>{{ $d->id }}</td>
                 {{-- <td>{{ $d["id"] }}</td> --}}
-                <td>{{ $d->nama }}</td>
+                <td>{{ $d->judul_buku }}</td>
                 <td>
-                    <form action="{{ url("buku/edit-form") }}" class="d-inline">
-                        <input type="hidden" name="id" value="{{ $d->id }}">
-                        <button type="submit" class="btn btn-info">Edit</button>
-                    </form>
-                    <form action="{{ url("buku/delete") }}" class="d-inline">
+                    <a href="{{ url("buku/".$d->id) }}" class="btn btn-primary">Detail</a>
+                    <a href="{{ url("buku/".$d->id."/edit") }}" class="btn btn-primary">Edit</a>
+                    <form method="POST" action="{{ url("buku/".$d->id."/delete") }}" class="d-inline">
+                        @method("DELETE")
+                        @csrf
                         <input type="hidden" name="id" value="{{ $d->id }}">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>

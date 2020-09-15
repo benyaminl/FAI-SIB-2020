@@ -19,15 +19,19 @@ Route::get('/', function () {
 
 Route::prefix("/buku")->group(function() {
     Route::get("/", "BukuController@list");
+    // Untuk detail buku, tampilkan data genre!
+    Route::get("/{id}", "BukuController@detail");
     // Nampilkan Form
-    // Route::get("/buku/add-form", "BukuController@addForm")->name("form-buku");
+    Route::get("/add-form", "BukuController@addForm")->name("form-buku");
     // Ini tanpa fungsi controller, bisa langsung tampilkan!
-    Route::view("/add-form", "buku.add");
+    // Route::view("/add-form", "buku.add");
     Route::post("/add-form", "BukuController@addData");
-    Route::get("/edit-form", "BukuController@editForm");
-    Route::patch("/edit-form", "BukuController@edit");
+    Route::get("/{id}/edit", "BukuController@editForm");
+    // INi EDIT PAth/Method
+    Route::patch("/{id}/edit", "BukuController@edit");
     // Nambahkan Data!
     Route::get("/add-data", "BukuController@addData");
+    Route::delete("/{id}/delete", "BukuController@delete");
 });
 
 Route::prefix("/genre")->group(function() {
@@ -37,8 +41,8 @@ Route::prefix("/genre")->group(function() {
     Route::post("/add", "GenreController@add");
 
     // Ini Route untuk View Edit
-    Route::get("/{id}/edit", "GenreController@editForm")
-        ->where("id", "[0-9]+");
+    Route::get("/{id}/edit", "GenreController@editForm");
+        // ->where("id", "[0-9]+");
     // Belajar di regexr.com untuk regex
     Route::patch("/{id}/edit", "GenreController@editData");
     Route::delete("/{id}", "GenreController@deleteData");
