@@ -28,6 +28,14 @@
             <input type="text" class="form-control" name="jumlah_halaman">
         </div>
         <div class="form-group">
+            <label>Penerbit</label>
+            <select class="form-control" name="penerbit">
+                @foreach ($dataPenerbit as $p)
+                    <option value="{{ $p->id }}">{{ $p->nama_penerbit }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
             <label>Pengarang</label>
             <input type="text" class="form-control" name="pengarang_buku">
         </div>
@@ -47,7 +55,7 @@
             </select>
         </div>
 
-        <button type='submit'>Tambah</button>
+        <button class="btn btn-primary" type='submit'>Tambah</button>
     </form>
 </div>
 @stop

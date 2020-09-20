@@ -20,7 +20,8 @@ Route::get('/', function () {
 Route::prefix("/buku")->group(function() {
     Route::get("/", "BukuController@list");
     // Untuk detail buku, tampilkan data genre!
-    Route::get("/{id}", "BukuController@detail");
+    Route::get("/{id}", "BukuController@detail")
+    ->where("id", "[0-9]+");
     // Nampilkan Form
     Route::get("/add-form", "BukuController@addForm")->name("form-buku");
     // Ini tanpa fungsi controller, bisa langsung tampilkan!

@@ -17,10 +17,12 @@ class BukuController extends Controller
     }
 
     public function addForm() {
-        $dataGenre = DB::table("genre")->get();
+        $dataGenre    = DB::table("genre")->get();
+        $dataPenerbit = DB::table("penerbit")->get();
 
         return \view("buku.add", [
-            "dataGenre" => $dataGenre
+            "dataGenre"    => $dataGenre,
+            "dataPenerbit" => $dataPenerbit
         ]);
     }
 
@@ -40,7 +42,7 @@ class BukuController extends Controller
             "pengarang_buku" => $request->input("nama_pengarang"),
             "tahun_terbit"   => $request->input("tahun_terbit"),
             "kota_terbit"   => $request->input("kota_terbit"),
-            "id_penerbit"   => 1
+            "id_penerbit"   => $request->input("penerbit")
         ]);
 
         // Ini ambil last insert ID, buku terakhir yang diinsert
