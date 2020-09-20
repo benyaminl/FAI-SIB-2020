@@ -3,14 +3,15 @@
 @section('title', 'Edit Buku')
 
 @section("content")
+<div class="container">
     <h1>Edit Buku</h1>
     <form method='post'>
         @method("PATCH")
         @csrf
-        <div class="form-control">
+        <div class="form-group">
             <label>Nama Buku</label>
             <input type="hidden" name="id" value="{{ $data->id }}">
-            <input name='nama_buku' value="{{ $data->judul_buku }}" required><br/>
+            <input name='nama_buku' value="{{ $data->judul_buku }}" class="form-control" required><br/>
         </div>
         <div class="form-group">
             <label>Genre</label>
@@ -23,8 +24,9 @@
                 @endforeach
             </select>
         </div>
-        <button type='submit'>Edit</button>
+        <button class="btn btn-success" type='submit'>Edit</button>
     </form>
+</div>
 @stop
 
 @push('js')
