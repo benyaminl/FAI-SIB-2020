@@ -175,6 +175,9 @@ class BukuController extends Controller
             ->join("genre as g", "g.id", "gb.id_genre")
             ->where("gb.id_buku", "=", $id)
             ->get();
+        $penerbit = DB::table("penerbit")
+            ->where("id", "=", $buku[0]->id_penerbit)
+            ->first();
 
         // Kalau mau ambil query hasil build nya!
         // dd(DB::table("genre_buku", "gb")
@@ -183,7 +186,8 @@ class BukuController extends Controller
 
         return \view("buku.detail", [
             "buku"      => $buku[0], // Ini ambil index ke nol karena dia yang pertama ketemu dan pasti index paling awal
-            "dataGenre" => $genreBuku // Array of Genre buku
+            "dataGenre" => $genreBuku, // Array of Genre buku
+            "penerbit"  => $penerbit
         ]);
     }
 }
