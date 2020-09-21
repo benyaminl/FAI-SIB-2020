@@ -48,3 +48,18 @@ Route::prefix("/genre")->group(function() {
     Route::patch("/{id}/edit", "GenreController@editData");
     Route::delete("/{id}", "GenreController@deleteData");
 });
+
+Route::prefix("penerbit")->group(function() {
+    Route::get("/", "PenerbitController@list");
+
+    Route::get("/add", "PenerbitController@addForm");
+    Route::post("/add", "PenerbitController@add");
+
+    Route::get("/collection", "PenerbitController@collectionForm");
+    Route::post("/collection", "PenerbitController@addCollection");
+
+    Route::get("/{id}/edit", "PenerbitController@editForm");
+    Route::patch("/{id}/edit", "PenerbitController@edit");
+
+    Route::delete("/{id}", "PenerbitController@delete");
+});
