@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Buku;
 use Illuminate\Http\Request; // HTTP REQUEST! 
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
@@ -171,10 +172,11 @@ class BukuController extends Controller
             abort(404, "Buku tidak ditemukan!");
         }
 
-        $genreBuku = DB::table("genre_buku", "gb")
-            ->join("genre as g", "g.id", "gb.id_genre")
-            ->where("gb.id_buku", "=", $id)
-            ->get();
+        // $genreBuku = DB::table("genre_buku", "gb")
+        //     ->join("genre as g", "g.id", "gb.id_genre")
+        //     ->where("gb.id_buku", "=", $id)
+        //     ->get();
+        // $genreBuku = Buku::find($id)->Kategori;
         $penerbit = DB::table("penerbit")
             ->where("id", "=", $buku[0]->id_penerbit)
             ->first();
@@ -183,10 +185,10 @@ class BukuController extends Controller
         // dd(DB::table("genre_buku", "gb")
         // ->join("genre as g", "g.id", "gb.id_genre")
         // ->where("gb.id_buku", "=", $id)->toSql());
-
+        $buku = Buku::find($id);
         return \view("buku.detail", [
-            "buku"      => $buku[0], // Ini ambil index ke nol karena dia yang pertama ketemu dan pasti index paling awal
-            "dataGenre" => $genreBuku, // Array of Genre buku
+            "buku"      => $buku, // Ini ambil index ke nol karena dia yang pertama ketemu dan pasti index paling awal
+            // "dataGenre" => $genreBuku, // Array of Genre buku
             "penerbit"  => $penerbit
         ]);
     }

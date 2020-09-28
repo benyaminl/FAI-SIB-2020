@@ -28,6 +28,15 @@
           <li class="nav-item {{ url()->current() == url("/genre") ? 'active' : '' }}">
             <a class="nav-link" href="{{ url("/genre") }}">Genre</a>
           </li>
+          <li class="nav-item {{ url()->current() == url("/users") ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url("/users") }}">User</a>
+          </li>
+          <li class="nav-item {{ url()->current() == url("/penerbit") ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url("/penerbit") }}">Penerbit</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url("/logout") }}">Logout</a>
+          </li>
         </ul>
       </div>
     </nav>

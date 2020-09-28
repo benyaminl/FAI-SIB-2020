@@ -23,12 +23,13 @@
             <th>ID</th>
             <th>Nama Genre</th>
         </tr>
-        @foreach ($dataGenre as $item)
+        @foreach ($buku->Kategori as $item)
         <tr>
             <td>{{ $item->id }}</td>
             <td>{{ $item->nama_genre }}</td>
         </tr>
         @endforeach
+        {{-- {{ dd($buku->Kategori) }} --}}
     </table>
 </div>
 @stop
