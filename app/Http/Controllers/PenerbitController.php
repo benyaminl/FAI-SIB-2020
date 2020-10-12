@@ -24,7 +24,7 @@ class PenerbitController extends Controller
             "alamat_penerbit" => "required|min:5",
             "email"           => "email",
             "telepon"         => "numeric",
-            "gambar"          => "required"
+            "gambar"          => "file|required"
         ]);
 
         $penerbit = new Penerbit();
@@ -32,10 +32,16 @@ class PenerbitController extends Controller
         $penerbit->alamat_penerbit = $input["alamat_penerbit"];
         $penerbit->email           = $input["email"];
         $penerbit->telepon         = $input["telepon"];
-        $penerbit->gambar          = $input["gambar"];
+        // $penerbit->gambar          = $input["gambar"];
         $result                    = $penerbit->save();
+        
+        $nama = $penerbit->id.".".$request->file("gambar")->getClientOriginalExtension();
+        $request->file("gambar")->storeAs("images", $nama, "public");
 
         if ($result) {
+            $penerbit->gambar = $nama;
+            $penerbit->save();
+
             return \redirect("/penerbit")
                     ->with("success", "Berhasil Input Penerbit!");
         } else {
@@ -58,7 +64,7 @@ class PenerbitController extends Controller
             "alamat_penerbit" => "required|min:5",
             "email"           => "email",
             "telepon"         => "numeric",
-            "gambar"          => "required"
+            "gambar"          => "file"
         ]);
 
         $penerbit = Penerbit::findOrFail($id);
@@ -66,8 +72,15 @@ class PenerbitController extends Controller
         $penerbit->alamat_penerbit = $input["alamat_penerbit"];
         $penerbit->email           = $input["email"];
         $penerbit->telepon         = $input["telepon"];
-        $penerbit->gambar          = $input["gambar"];
+        // $penerbit->gambar          = $input["gambar"];
         $result                    = $penerbit->save();
+        
+        if ($request->file("gambar") != null) {
+            $name = $penerbit->id.".".$request->file("gambar")->getClientOriginalExtension();
+            $request->file("gambar")->storeAs("images", $name, "public");
+            $penerbit->gambar = $name;
+            $penerbit->save();
+        }
 
         if ($result) {
             return \redirect("/penerbit")
@@ -80,7 +93,8 @@ class PenerbitController extends Controller
 
     public function delete($id) {
         $penerbit = Penerbit::findOrFail($id);
-        $result = $penerbit->delete();
+        // $result = $penerbit->delete();
+        $result = $penerbit->forceDelete();
 
         if ($result) {
             return \redirect("/penerbit")

@@ -6,7 +6,7 @@
 <div class="container">
     <h1>Add Penerbit</h1>
     @include('alert')
-    <form method='post'>
+    <form method='post' enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label>Nama Penerbit</label>
@@ -26,7 +26,8 @@
         </div>
         <div class="form-group">
             <label>Gambar</label>
-            <input type="text" class="form-control" name='gambar' value="{{ old('gambar') }}" required><br/>
+            {{-- <input type="text" class="form-control" name='gambar' value="{{ old('gambar') }}" required><br/> --}}
+            <input type="file" name="gambar" class="form-control">
         </div>
         <button class="btn btn-primary" type='submit'>Tambah</button>
     </form>

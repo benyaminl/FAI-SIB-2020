@@ -6,7 +6,7 @@
 <div class="container">
     <h1>Edit Penerbit</h1>
     @include('alert')
-    <form method='post' action="{{ url('penerbit/'.$data->id.'/edit') }}">
+    <form method='post' action="{{ url('penerbit/'.$data->id.'/edit') }}" enctype="multipart/form-data">
         @method("PATCH")
         @csrf
         <div class="form-group">
@@ -27,7 +27,8 @@
         </div>
         <div class="form-group">
             <label>Gambar</label>
-            <input type="text" class="form-control" name='gambar' value="{{ $data->gambar }}" required><br/>
+            {{-- <input type="text" class="form-control" name='gambar' value="{{ $data->gambar }}" required><br/> --}}
+            <input type="file" name="gambar" class="form-control">
         </div>
         <button type='submit' class="btn btn-info">Edit</button>
         

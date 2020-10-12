@@ -21,7 +21,7 @@
                 <td>{{ $d->id }}</td>
                 <td>{{ $d->nama_penerbit }}</td>
                 <td>{{ $d->alamat_penerbit }}</td>
-                <td><img src="{{ $d->gambar }}"></td>
+                <td><img src="{{ (strpos($d->gambar, "https://") === false) ? asset("/storage/images/".$d->gambar) : $d->gambar }}"></td>
                 <td>
                     <a class="btn btn-info" href="{{ url('penerbit/'.$d->id.'/edit') }}">Edit</a>
 

@@ -17,7 +17,7 @@ Route::get('/', function () {
    return view("master.index");
 });
 
-Route::middleware("authenticate")->group(function(){
+Route::middleware("auth")->group(function(){
     Route::prefix("/buku")->group(function() {
         Route::get("/", "BukuController@list");
         // Untuk detail buku, tampilkan data genre!
@@ -78,6 +78,6 @@ Route::middleware("authenticate")->group(function(){
     });
 });
 
-Route::view("/login", "auth.login");
-Route::post("/login", "LoginController@login");
+Route::view("/login", "auth.login")->name("login")->middleware("guest");
+Route::post("/login", "LoginController@login")->middleware("guest");
 Route::get("/logout", "LoginController@logout");
