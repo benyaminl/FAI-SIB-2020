@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BukuSearchResources;
 use App\Model\Buku;
 use Illuminate\Http\Request; // HTTP REQUEST! 
 use Illuminate\Support\Facades\Cookie;
@@ -104,13 +105,20 @@ class BukuController extends Controller
 
     public function edit(Request $request, $id) {
         DB::beginTransaction();
-        $result = DB::table("buku")
-                ->where("id", "=", $id)
-                ->update([
-                    "judul_buku" => $request->input("nama_buku")
-                ]);
+        // Query Builder tidak ada timestamp!
+        // $result = DB::table("buku")
+        //         ->where("id", "=", $id)
+        //         ->update([
+        //             "judul_buku" => $request->input("nama_buku")
+        //         ]);
+
+        /** @var \App\Model\Buku $result */
+        $buku = Buku::find($id);
+        $buku->judul_buku = $request->input("nama_buku");
+        $result = $buku->save();
+
         // Hapus dari Genre Buku, karena buku sudah dihapus, tidak mungkin memiliki genre
-        $result = $result +  DB::table("genre_buku")
+        $result = $result + DB::table("genre_buku")
                     ->where("id_buku", "=", $id)
                     ->delete();
         
@@ -191,5 +199,43 @@ class BukuController extends Controller
             // "dataGenre" => $genreBuku, // Array of Genre buku
             "penerbit"  => $penerbit
         ]);
+    }
+
+    public function searchForm(Request $request) {
+        // Apakah halaman nya untuk show form saja?
+        if (count($request->all()) <= 0) 
+            // Kalau iya maka tampilkan form saja
+            // return \view("buku.search");
+            return \view("buku.search-ajax");
+        else 
+            // Kalau tidak tampilkan hasil search nya!
+            return $this->searchBuku($request);
+    }
+
+    public function searchBuku(Request $request) {
+        $request->validate([
+            "nama" => "string|required"
+        ]);
+        // Lakukan searching buku
+        $arrBuku = Buku::query()
+            // select * from buku where `LOWER(judul_buku)` like '%%';
+            ->where(DB::raw("LOWER(judul_buku)"), "like", 
+            "%".\strtolower($request->input("nama"))."%")->get();
+        return \view("buku.search", [
+            'data' => $arrBuku
+        ])->with("nama", $request->input("nama"));
+    }
+
+    public function searchJson(Request $request) {
+        $request->validate([
+            "nama" => "string|required"
+        ]);
+        // Lakukan searching buku
+        $arrBuku = Buku::query()
+            // select * from buku where `LOWER(judul_buku)` like '%%';
+            ->where(DB::raw("LOWER(judul_buku)"), "like", 
+            "%".\strtolower($request->input("nama"))."%")->get();
+            
+        return BukuSearchResources::collection($arrBuku);
     }
 }

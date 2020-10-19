@@ -13,9 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-   return view("master.index");
-});
+// Route::get('/', function () {
+//    return view("master.index");
+// });
+
+Route::get("/", "BukuController@searchForm");
+Route::get("/pencarian/buku", "BukuController@searchJson");
 
 Route::middleware("auth")->group(function(){
     Route::prefix("/buku")->group(function() {
