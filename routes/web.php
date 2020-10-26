@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/", "BukuController@searchForm");
 Route::get("/pencarian/buku", "BukuController@searchJson");
+// Ini Route Pagination
+Route::get("/pencarian/buku-pagination", "BukuController@pencarianPagination");
+Route::view("pencarian/buku-pagination-ajax","pencarian.ajax-pagination");
+Route::get("/pencarian/pagination-ajax", "BukuController@pencarianPaginationAjax");
 
 Route::middleware("auth")->group(function(){
     Route::prefix("/buku")->group(function() {

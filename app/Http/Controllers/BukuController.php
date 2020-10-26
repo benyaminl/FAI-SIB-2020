@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Resources\BukuSearchResources;
 use App\Model\Buku;
 use Illuminate\Http\Request; // HTTP REQUEST! 
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+use InvalidArgumentException;
 
 class BukuController extends Controller
 {
@@ -237,5 +239,48 @@ class BukuController extends Controller
             "%".\strtolower($request->input("nama"))."%")->get();
             
         return BukuSearchResources::collection($arrBuku);
+    }
+
+    /**
+     * Ini adalah fungsi untuk melakukan search dengan pagination
+     * @param Request $request 
+     * @return void 
+     */
+    public function pencarianPagination(Request $request) {
+        $data = Buku::query()
+        ->where(DB::raw("LOWER(judul_buku)"), "like", 
+        "%".\strtolower($request->input("nama", ''))."%")
+        ->paginate(1)
+        // Append untuk nambah query apram search di Pagination Link!
+        // eg. pencarian?page=2&nama=<ini diambil dari append>
+        // Kalau ga hilang!
+        ->appends($request->query());
+
+        return \view("pencarian.web-pagination", [
+            "data" => $data
+        ]);
+    }
+
+    public function pencarianPaginationAjaxView(Request $request) {
+        return \view("pencarian.ajax-pagination");
+    }
+
+    /**
+     * Fungsi Ajax search buku
+     * @param Request $request REQUEST DARI CLIENT
+     * @return AnonymousResourceCollection 
+     * @throws InvalidArgumentException 
+     */
+    public function pencarianPaginationAjax(Request $request) {
+        $data = Buku::query()
+        ->where(DB::raw("LOWER(judul_buku)"), "like", 
+        "%".\strtolower($request->input("nama", ''))."%")
+        ->paginate(1)
+        // Append untuk nambah query apram search di Pagination Link!
+        // eg. pencarian?page=2&nama=<ini diambil dari append>
+        // Kalau ga hilang!
+        ->appends($request->query());
+
+        return BukuSearchResources::collection($data);
     }
 }
