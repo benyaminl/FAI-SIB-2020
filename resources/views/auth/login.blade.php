@@ -11,7 +11,7 @@
         @csrf 
         <label>Email</label> <input type="email" name="email" value="{{ old('email') }}"><br/>
         <label>Password</label> <input type="password" name="password" value="{{ old('password') }}"><br/>
-        <button>Login</button>
+        <button>@lang('Log in')</button>
     </form>
 </body>
 </html>

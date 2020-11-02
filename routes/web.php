@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,12 @@ Route::get("/pencarian/buku-pagination", "BukuController@pencarianPagination");
 Route::view("pencarian/buku-pagination-ajax","pencarian.ajax-pagination");
 Route::get("/pencarian/pagination-ajax", "BukuController@pencarianPaginationAjax");
 
-Route::middleware("auth")->group(function(){
+Route::get("/lang/{id}", function($id) {
+    Session::put("locale", $id);
+    return redirect()->back();
+});
+
+Route::middleware(["auth"])->group(function(){
     Route::prefix("/buku")->group(function() {
         Route::get("/", "BukuController@list");
         // Untuk detail buku, tampilkan data genre!

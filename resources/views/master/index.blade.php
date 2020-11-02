@@ -23,19 +23,28 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item {{ (url()->current() == url("/buku")) ? 'active' : '' }}">
-            <a class="nav-link" href="{{ url("/buku") }}">Buku </a>
+            <a class="nav-link" href="{{ url("/buku") }}">@lang("Books") </a>
           </li>
           <li class="nav-item {{ url()->current() == url("/genre") ? 'active' : '' }}">
-            <a class="nav-link" href="{{ url("/genre") }}">Genre</a>
+            <a class="nav-link" href="{{ url("/genre") }}">@lang("Genre")</a>
           </li>
           <li class="nav-item {{ url()->current() == url("/users") ? 'active' : '' }}">
             <a class="nav-link" href="{{ url("/users") }}">User</a>
           </li>
           <li class="nav-item {{ url()->current() == url("/penerbit") ? 'active' : '' }}">
-            <a class="nav-link" href="{{ url("/penerbit") }}">Penerbit</a>
+            <a class="nav-link" href="{{ url("/penerbit") }}">@lang("Issuer")</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url("/logout") }}">Logout</a>
+          <a class="nav-link" href="{{ url("/logout") }}">@lang("Log Out")</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ App::getLocale() }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ url("/lang/id") }}">ID</a>
+              <a class="dropdown-item" href="{{ url("/lang/en") }}">EN</a>
+            </div>
           </li>
         </ul>
       </div>

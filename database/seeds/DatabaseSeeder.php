@@ -14,5 +14,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(UserSeeder::class);
         // Panggil data penerbit
         $this->call(Penerbit::class);
+        // Panggil data Buku
+        $this->call(BukuSeeder::class);
     }
 }
