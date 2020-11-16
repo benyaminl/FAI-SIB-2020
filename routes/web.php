@@ -27,6 +27,9 @@ Route::get("/error-test", function() {
     DB::select("asdasdasd");
 });
 
+Route::get("/datatable", "BukuDatatable@view");
+Route::get("/ajax/buku", "BukuDatatable@DatatableAjax");
+
 Route::get("/", "BukuController@searchForm");
 Route::get("/pencarian/buku", "BukuController@searchJson");
 // Ini Route Pagination
