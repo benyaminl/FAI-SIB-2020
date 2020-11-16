@@ -1,6 +1,9 @@
 <?php
 
+use App\Exceptions\ExampleException;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -18,6 +21,11 @@ use Illuminate\Support\Facades\Session;
 // Route::get('/', function () {
 //    return view("master.index");
 // });
+Route::get("/error-test", function() {
+    // throw new Exception("COntoh Error!");
+    // throw new ExampleException("HALOO", 10);
+    DB::select("asdasdasd");
+});
 
 Route::get("/", "BukuController@searchForm");
 Route::get("/pencarian/buku", "BukuController@searchJson");
